@@ -42,6 +42,14 @@
     "defaultValue": "setbypolicy_eventHub"
    }
   },
+   "eventHubName": {
+    "type": "String",
+    "metadata": {
+     "displayName": "EventHubName",
+     "description": "TheEventHubisntance"
+  },
+  
+  
   "policyRule": {
    "if": {
     "allOf": [
@@ -61,11 +69,12 @@
       "allOf": [
        {
         "field": "Microsoft.Insights/diagnosticSettings/eventHubAuthorizationRuleId",
-        "equals": "[parameters('eventHubRuleId')]"
+        "equals": "[parameters('eventHubRuleId'/'eventHubName)]"
        },
        {
         "field": "name",
         "equals": "[parameters('profileName')]"
+       },
        }
       ]
      },
@@ -86,6 +95,9 @@
          "profileName": {
           "type": "String"
          }
+          "eventHubName": {
+          "type": "String"
+         }
         },
         "variables": {},
         "resources": [
@@ -95,7 +107,7 @@
           "name": "[parameters('profileName')]",
           "location": "global",
           "properties": {
-           "eventHubAuthorizationRuleId": "[parameters('eventHubRuleId')]",
+           "eventHubAuthorizationRuleId": "[parameters('eventHubRuleId'/'eventHubName)]",
            "logs": [
             {
              "category": "Administrative",
@@ -136,7 +148,7 @@
        },
        "parameters": {
         "eventHubRuleId": {
-         "value": "[parameters('eventHubRuleId')]"
+         "value": "[parameters('eventHubRuleId'/'eventHubName)]"
         },
         "profileName": {
          "value": "[parameters('profileName')]"
