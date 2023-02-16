@@ -1,0 +1,33 @@
+{
+ "sku": {
+  "name": "A0",
+  "tier": "Free"
+ },
+ "identity": {
+  "principalId": "7e4429e0-5532-405a-8a5d-72068a1bd7b4",
+  "tenantId": "8664f4f0-45d4-43e3-ae2d-954ca49c3f19",
+  "type": "SystemAssigned"
+ },
+ "properties": {
+  "displayName": "Deploy Diagnostic Settings to Azure Services",
+  "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/ashlz/providers/Microsoft.Authorization/policySetDefinitions/Deploy-Diagnostics-LogAnalytics",
+  "scope": "/providers/Microsoft.Management/managementGroups/ashlz",
+  "parameters": {
+   "logAnalytics": {
+    "value": "/subscriptions/8c6ceb3a-07a7-473b-8dc7-25e94edbf679/resourceGroups/ashlz-mgmt/providers/Microsoft.OperationalInsights/workspaces/ashlz-law"
+   }
+  },
+  "description": "This policy set deploys the configurations of application Azure resources to forward diagnostic logs and metrics to an Azure Log Analytics workspace. See the list of policies of the services that are included",
+  "metadata": {
+   "createdBy": "9a2f2244-cb89-445b-99e6-deb7551e26dc",
+   "createdOn": "2022-12-12T01:54:48.9885497Z",
+   "updatedBy": null,
+   "updatedOn": null
+  },
+  "enforcementMode": "Default"
+ },
+ "id": "/providers/Microsoft.Management/managementGroups/ashlz/providers/Microsoft.Authorization/policyAssignments/Deploy-Resource-Diag",
+ "type": "Microsoft.Authorization/policyAssignments",
+ "name": "Deploy-Resource-Diag",
+ "location": "canadacentral"
+}
