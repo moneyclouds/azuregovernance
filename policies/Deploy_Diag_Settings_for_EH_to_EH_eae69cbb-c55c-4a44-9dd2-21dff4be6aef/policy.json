@@ -129,6 +129,8 @@
          "profileName": {
           "type": "string"
          }
+         "eventHubName": {
+          "type": "string"
         },
         "variables": {},
         "resources": [
