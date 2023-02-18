@@ -154,31 +154,35 @@
            ],
            "logs": [
             {
-             "category": "ArchiveLogs",
+             "category": "Administrative",
              "enabled": "[parameters('logsEnabled')]"
             },
             {
-             "category": "OperationalLogs",
+             "category": "Security",
              "enabled": "[parameters('logsEnabled')]"
             },
             {
-             "category": "AutoScaleLogs",
+             "category": "ServiceHealth",
              "enabled": "[parameters('logsEnabled')]"
             },
             {
-             "category": "KafkaCoordinatorLogs",
+             "category": "Alert",
              "enabled": "[parameters('logsEnabled')]"
             },
             {
-             "category": "KafkaUserErrorLogs",
+             "category": "Recommendation",
              "enabled": "[parameters('logsEnabled')]"
             },
             {
-             "category": "EventHubVNetConnectionEvent",
+             "category": "Policy",
              "enabled": "[parameters('logsEnabled')]"
             },
             {
-             "category": "CustomerManagedKeyUserLogs",
+             "category": "Autoscale",
+             "enabled": "[parameters('logsEnabled')]"
+            },
+            {
+             "category": "ResourceHealth",
              "enabled": "[parameters('logsEnabled')]"
             }
            ]
@@ -188,12 +192,6 @@
         "outputs": {}
        },
        "parameters": {
-        "location": {
-         "value": "[field('location')]"
-        },
-        "resourceName": {
-         "value": "[field('name')]"
-        },
         "eventHubRuleId": {
          "value": "[parameters('eventHubRuleId')]"
         },
@@ -205,6 +203,9 @@
         },
         "profileName": {
          "value": "[parameters('profileName')]"
+        },
+        "EventHubName": {
+         "value": "[parameters('eventHubName')]"
         }
        }
       }
