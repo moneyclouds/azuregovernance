@@ -109,7 +109,7 @@
        "mode": "incremental",
        "template": {
         "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-        "contentVersion": "1.0.0.0",
+        "contentVersion": "1.1.0.0",
         "parameters": {
          "resourceName": {
           "type": "string"
@@ -135,13 +135,13 @@
         "variables": {},
         "resources": [
          {
-          "type": "Microsoft.EventHub/namespaces/providers/diagnosticSettings",
-          "apiVersion": "2017-05-01-preview",
-          "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('profileName'))]",
-          "location": "[parameters('location')]",
+          "type": "Microsoft.Insights/diagnosticSettings",
+          "apiVersion": "2021-05-01-preview",
+          "name": "[parameters('profileName'))]",
           "dependsOn": [],
           "properties": {
            "eventHubAuthorizationRuleId": "[parameters('eventHubRuleId')]",
+           "eventHubName": "[parameters('eventHubName')]",
            "metrics": [
             {
              "category": "AllMetrics",
