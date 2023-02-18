@@ -80,20 +80,8 @@
     "allOf": [
      {
       "field": "type",
-      "equals": "Microsoft.EventHub/namespaces"
+      "equals": "Microsoft.Resources/subscriptions"
      },
-     {
-      "anyOf": [
-       {
-        "value": "[parameters('eventHubLocation')]",
-        "equals": ""
-       },
-       {
-        "field": "location",
-        "equals": "[parameters('eventHubLocation')]"
-       }
-      ]
-     }
     ]
    },
    "then": {
