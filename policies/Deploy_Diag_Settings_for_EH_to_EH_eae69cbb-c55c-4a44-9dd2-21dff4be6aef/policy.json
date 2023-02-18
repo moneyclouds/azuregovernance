@@ -2,7 +2,7 @@
  "properties": {
   "displayName": "Deploy Diag Settings for EH to EH",
   "policyType": "Custom",
-  "mode": "Indexed",
+  "mode": "All",
   "description": "Deploys the diagnostic settings for Event Hub to stream to a regional Event Hub when any Event Hub which is missing this diagnostic settings is created or updated.",
   "metadata": {
    "category": "Monitoring",
@@ -37,16 +37,16 @@
     "metadata": {
      "displayName": "Event Hub Authorization Rule Id",
      "description": "The Event Hub authorization rule Id for Azure Diagnostics. The authorization rule needs to be at Event Hub namespace level. e.g. /subscriptions/{subscription Id}/resourceGroups/{resource group}/providers/Microsoft.EventHub/namespaces/{Event Hub namespace}/authorizationrules/{authorization rule}",
-     "strongType": "Microsoft.EventHub/Namespaces/AuthorizationRules",
+     "strongType": "Microsoft.EventHub/namespaces/authorizationRules",
      "assignPermissions": true
     }
    },
-   "eventHubLocation": {
+   "eventHubName": {
     "type": "String",
     "metadata": {
-     "displayName": "Event Hub Destination Location",
-     "description": "The location the Event Hub that will get diagnostic data resides in. Only source Event Hubs in this location will be linked to this destination Event Hub.",
-     "strongType": "location"
+     "displayName": "Event Hub Name",
+     "description": "The Event Hub entity/instance that will get the diagnostic data.",
+     "strongType": "Microsoft.EventHub/namespaces/eventhubs"
     },
     "defaultValue": ""
    },
