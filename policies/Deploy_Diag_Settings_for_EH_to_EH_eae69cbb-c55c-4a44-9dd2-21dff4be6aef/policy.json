@@ -217,4 +217,5 @@
  "id": "/providers/Microsoft.Management/managementGroups/ashlz/providers/Microsoft.Authorization/policyDefinitions/eae69cbb-c55c-4a44-9dd2-21dff4be6aef",
  "type": "Microsoft.Authorization/policyDefinitions",
  "name": "eae69cbb-c55c-4a44-9dd2-21dff4be6aef"
-}
+ }
+} 
