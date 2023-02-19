@@ -131,7 +131,7 @@
          },
          "eventHubName": {
           "type": "string"
-         }
+         },
         "variables": {},
         "resources": [
          {
