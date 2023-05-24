@@ -1,0 +1,178 @@
+{
+  "properties": {
+    "displayName": "Deploy Diagnostic Settings for Activity Log to Event Hub(ScopeEH)",
+    "policyType": "Custom",
+    "mode": "All",
+    "description": "Deploys the diagnostic settings for Activity Log to stream to a regional Event Hub when any Subscription which is missing this diagnostic settings is created or updated.",
+    "metadata": {
+      "category": "Governance",
+      "createdBy": "49ac2475-dced-442a-8872-e8c8eff75ac8",
+      "createdOn": "2023-02-23T04:23:46.4477761Z",
+      "updatedBy": null,
+      "updatedOn": null
+    },
+    "parameters": {
+      "eventHubName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "EventHub Name",
+          "description": "The event hub for Azure Diagnostics",
+          "strongType": "Microsoft.EventHub/Namespaces/EventHubs",
+          "assignPermissions": true
+        }
+      },
+      "eventHubRuleId": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Event Hub Authorization Rule Id",
+          "description": "The Event Hub authorization rule Id for Azure Diagnostics. The authorization rule needs to be at Event Hub namespace level. e.g. /subscriptions/{subscription Id}/resourceGroups/{resource group}/providers/Microsoft.EventHub/namespaces/{Event Hub namespace}/authorizationrules/{authorization rule}",
+          "strongType": "Microsoft.EventHub/Namespaces/AuthorizationRules",
+          "assignPermissions": true
+        }
+      },
+      "effect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Effects",
+          "description": "Enable or disable the execution of the Policy."
+        },
+        "allowedValues": [
+          "DeployIfNotExists",
+          "Disabled"
+        ],
+        "defaultValue": "DeployIfNotExists"
+      },
+      "profileName": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Profile name",
+          "description": "The diagnostic settings profile name"
+        },
+        "defaultValue": "SubscriptionActivityLogToEventHub"
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Resources/subscriptions"
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]",
+        "details": {
+          "type": "Microsoft.Insights/diagnosticSettings",
+          "ExistenceScope": "Subscription",
+          "DeploymentScope": "Subscription",
+          "ExistenceCondition": {
+            "allOf": [
+              {
+                "field": "Microsoft.Insights/diagnosticSettings/eventHubAuthorizationRuleId",
+                "equals": "[parameters('eventHubRuleId')]"
+              },
+              {
+                "field": "name",
+                "equals": "[parameters('profileName')]"
+              }
+            ]
+          },
+          "roleDefinitionIds": [
+            "/providers/Microsoft.Authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
+          ],
+          "deployment": {
+            "location": "eastus",
+            "properties": {
+              "mode": "incremental",
+              "template": {
+                "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+                "contentVersion": "1.0.0.0",
+                "parameters": {
+                  "eventHubName": {
+                    "type": "string"
+                  },
+                  "eventHubRuleId": {
+                    "type": "String"
+                  },
+                  "profileName": {
+                    "type": "String"
+                  }
+                },
+                "variables": {},
+                "resources": [
+                  {
+                    "type": "Microsoft.Insights/diagnosticSettings",
+                    "apiVersion": "2017-05-01-preview",
+                    "name": "[parameters('profileName')]",
+                    "location": "global",
+                    "properties": {
+                      "eventHubName": "[last(split(parameters('eventHubName'), '/'))]",
+                      "eventHubAuthorizationRuleId": "[parameters('eventHubRuleId')]",
+                      "logs": [
+                        {
+                          "category": "Administrative",
+                          "enabled": true
+                        },
+                        {
+                          "category": "Security",
+                          "enabled": true
+                        },
+                        {
+                          "category": "ServiceHealth",
+                          "enabled": true
+                        },
+                        {
+                          "category": "Alert",
+                          "enabled": true
+                        },
+                        {
+                          "category": "Recommendation",
+                          "enabled": true
+                        },
+                        {
+                          "category": "Policy",
+                          "enabled": true
+                        },
+                        {
+                          "category": "Autoscale",
+                          "enabled": true
+                        },
+                        {
+                          "category": "ResourceHealth",
+                          "enabled": true
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "parameters": {
+                "eventHubName": {
+                  "value": "[parameters('eventHubName')]"
+                },
+                "eventHubRuleId": {
+                  "value": "[parameters('eventHubRuleId')]"
+                },
+                "profileName": {
+                  "value": "[parameters('profileName')]"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "id": "/providers/Microsoft.Management/managementGroups/8664f4f0-45d4-43e3-ae2d-954ca49c3f19/providers/Microsoft.Authorization/policyDefinitions/812393be-67a0-45e4-8024-9af1b2c1ca1a",
+  "type": "Microsoft.Authorization/policyDefinitions",
+  "name": "812393be-67a0-45e4-8024-9af1b2c1ca1a",
+  "systemData": {
+    "createdBy": "askenned@microsoft.com",
+    "createdByType": "User",
+    "createdAt": "2023-02-23T04:23:46.3878179Z",
+    "lastModifiedBy": "askenned@microsoft.com",
+    "lastModifiedByType": "User",
+    "lastModifiedAt": "2023-02-23T04:23:46.3878179Z"
+  }
+}
